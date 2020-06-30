@@ -8,127 +8,127 @@ module Hyrax
       {
         name: 'Bakersfield',
         slug: 'bakersfield',
-        email_domain: 'bakersfield.edu'
+        email_domains: ['bakersfield.edu']
       },
       {
         name: 'Chancellor',
         slug: 'chancellor',
-        email_domain: 'calstate.edu'
+        email_domains: ['calstate.edu']
       },
       {
         name: 'Channel Islands',
         slug: 'channel',
-        email_domain: 'ci.edu'
+        email_domains: ['ci.edu']
       },
       {
         name: 'Chico',
         slug: 'chico',
-        email_domain: 'chico.edu'
+        email_domains: ['chico.edu']
       },
       {
         name: 'Dominguez Hills',
         slug: 'dominguez',
-        email_domain: 'dh.edu'
+        email_domains: ['dh.edu']
       },
       {
         name: 'East Bay',
         slug: 'eastbay',
-        email_domain: 'eb.edu'
+        email_domains: ['eb.edu']
       },
       {
         name: 'Fresno',
         slug: 'fresno',
-        email_domain: 'fresno.edu'
+        email_domains: ['fresno.edu']
       },
       {
         name: 'Fullerton',
         slug: 'fullerton',
-        email_domain: 'fullerton.edu'
+        email_domains: ['fullerton.edu']
       },
       {
         name: 'Humboldt',
         slug: 'humboldt',
-        email_domain: 'humboldt.edu'
+        email_domains: ['humboldt.edu']
       },
       {
         name: 'Long Beach',
         slug: 'longbeach',
-        email_domain: 'lb.edu'
+        email_domains: ['lb.edu']
       },
       {
         name: 'Los Angeles',
         slug: 'losangeles',
-        email_domain: 'la.edu'
+        email_domains: ['la.edu']
       },
       {
         name: 'Maritime',
         slug: 'maritime',
-        email_domain: 'csum.edu'
+        email_domains: ['csum.edu']
       },
       {
         name: 'Monterey Bay',
         slug: 'monterey',
-        email_domain: 'csumb.edu'
+        email_domains: ['csumb.edu']
       },
       {
         name: 'Moss Landing',
         slug: 'mlml',
-        email_domain: 'mlml.edu'
+        email_domains: ['mlml.edu']
       },
       {
         name: 'Northridge',
         slug: 'northridge',
-        email_domain: 'csun.edu'
+        email_domains: ['csun.edu']
       },
       {
         name: 'Pomona',
         slug: 'pomona',
-        email_domain: 'cpp.edu'
+        email_domains: ['cpp.edu']
       },
       {
         name: 'Sacramento',
         slug: 'sacramento',
-        email_domain: 'sacramento.edu'
+        email_domains: ['sacramento.edu']
       },
       {
         name: 'San Bernardino',
         slug: 'sacramento',
-        email_domain: 'sacramento.edu'
+        email_domains: ['sacramento.edu']
       },
       {
         name: 'San Francisco',
         slug: 'sanfrancisco',
-        email_domain: 'sf.edu'
+        email_domains: ['sf.edu']
       },
       {
         name: 'San Jose',
         slug: 'sanjose',
-        email_domain: 'sjsu.edu'
+        email_domains: ['sjsu.edu']
       },
       {
         name: 'San Diego',
         slug: 'sandiego',
-        email_domain: 'sdsu.edu'
+        email_domains: ['sdsu.edu']
       },
       {
         name: 'San Luis Obispo',
         slug: 'sanluisobisbo',
-        email_domain: 'calpoly.edu'
+        email_domains: ['calpoly.edu']
       },
       {
         name: 'San Marcos',
         slug: 'sanmarcos',
-        email_domain: 'sanmarcos.edu'
+        email_domains: ['sanmarcos.edu']
       },
       {
         name: 'Sonoma',
         slug: 'sonoma',
-        email_domain: 'sonoma.edu'
+        email_domains: ['sonoma.edu']
       },
       {
         name: 'Stanislaus',
         slug: 'stanislaus',
-        email_domain: 'stanislaus.edu'
+        email_domains: ['stanislaus.edu']
       }
     ].freeze
 
@@ -158,12 +158,12 @@ module Hyrax
     #
     def self.get_campus_from_admin_set(admin_set_name)
       result = CAMPUSES.find do |campus|
-        admin_set_name.include?(campus.name)
+        admin_set_name.include?(campus[:name])
       end
 
       raise 'No campus admin set found' unless result.present?
 
-      result
+      result[:name]
     end
   end
 end

@@ -5,7 +5,7 @@ module Hyrax
 
     def self.select_options(controller, form)
       campus = Hyrax::CampusService.get_campus_from_form(controller, form)
-      campus.downcase!.sub!(' ', '_')
+      campus = campus.downcase.gsub(' ', '_')
       campus_authority = Qa::Authorities::Local.subauthority_for('colleges_' + campus)
 
       campus_authority.all.map do |element|
