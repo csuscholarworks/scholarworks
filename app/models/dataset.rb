@@ -3,6 +3,7 @@
 class Dataset < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include ::CsuMetadata
+  include ::Hydra::AccessControls::CampusVisibility
   before_create :update_fields
 
   self.indexer = DatasetIndexer

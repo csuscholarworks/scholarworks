@@ -165,5 +165,19 @@ module Hyrax
 
       result[:name]
     end
+
+    def self.get_campus_slug_from_name(campus_name)
+      CAMPUSES.select do |campus|
+        campus[:name].downcase == campus_name.downcase
+      end.first&.fetch(:slug)
+    end
+
+    def self.all_campus_slugs
+      CAMPUSES.map { |campus| campus[:slug] }
+    end
+
+    def self.all_campus_names
+      CAMPUSES.map { |campus| campus[:name] }
+    end
   end
 end

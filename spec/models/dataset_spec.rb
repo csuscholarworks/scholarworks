@@ -3,7 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Dataset do
-  it "has tests" do
-    skip "Add your tests here"
+  describe '#visibility=' do
+    it 'supports "campus" visibility' do
+      expect{ subject.visibility = 'campus' }.to change{ subject.read_groups }.to include('sanfrancisco')
+    end
+
+    it 'retains "campus" visibility' do
+      expect{ subject.visibility = 'campus' }.to change{ subject.visibility }.to eq('campus')
+    end
   end
 end
