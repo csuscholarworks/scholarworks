@@ -14,6 +14,7 @@ Hyrax::CampusService::CAMPUSES.each do |campus|
   puts "Creating user #{campus_user_email}"
   user = User.where(email: campus_user_email).first_or_create do |f|
     f.password = 'testing123'
+    f.password_confirmation = 'testing123'
     f.admin_area = true
   end
 

@@ -34,3 +34,4 @@ class Dataset < ActiveFedora::Base
     self.resource_type = resource_type_dataset
   end
 end
+

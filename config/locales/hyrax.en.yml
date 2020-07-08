@@ -59,6 +59,10 @@ en:
     institution_name_full: "California State University"
     product_name: ScholarWorks
     product_twitter_handle: "@csuscholarworks"
+    visibility:
+      campus:
+        note_html: "Restrict access to campus"
+        text: "Campus"
   simple_form:
     hints:
       defaults:
