@@ -4,6 +4,7 @@ module Hydra
       # What these groups are called in the Hydra rights assertions:
       PERMISSION_TEXT_VALUE_PUBLIC = 'public'.freeze
       PERMISSION_TEXT_VALUE_AUTHENTICATED = 'registered'.freeze
+      PERMISSION_TEXT_VALUE_CAMPUS = 'campus'.freeze
 
       # The values that get drawn to the page
       VISIBILITY_TEXT_VALUE_PUBLIC = 'open'.freeze
