@@ -18,5 +18,8 @@ module Bravado
     config.active_job.queue_adapter = :sidekiq
     Rails.application.routes.default_url_options[:host] = ENV["SCHOLARWORKS_HOST"]
 
+    config.to_prepare do
+      Hyrax::CurationConcern.actor_factory.insert_after Hyrax::Actors::DefaultAdminSetActor, Hyrax::Actors::AssignCampusActor
+    end
   end
 end

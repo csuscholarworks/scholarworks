@@ -7,8 +7,6 @@ class Ability
 
   # Define any customized permissions here.
   def custom_permissions
-    puts "****************** CUSTOM PERMISSIONS BEING CALLED YO **************"
-
     campus = current_user_campus
     user_groups.push(campus) if campus.present?
 

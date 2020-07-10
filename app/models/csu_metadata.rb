@@ -102,13 +102,15 @@ module CsuMetadata
     property :embargo_terms, predicate: ::RDF::Vocab::DC.description, multiple: false
   end
 
-  protected
-
   def update_fields
-    raise 'No admin set defined for this item.' if admin_set.nil?
+    raise 'No admin set defined for this item.' if admin_set&.title&.first.nil?
 
+    assign_campus(admin_set.title.first.to_s)
+  end
+
+  def assign_campus(admin_set_title)
     # assign campus name based on admin set
-    campus = Hyrax::CampusService.get_campus_from_admin_set(admin_set.title.first.to_s)
+    campus = Hyrax::CampusService.get_campus_from_admin_set(admin_set_title)
     self.campus = [campus]
   end
 end
