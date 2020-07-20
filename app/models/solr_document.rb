@@ -34,6 +34,10 @@ class SolrDocument
     self[Solrizer.solr_name('handle')]
   end
 
+  def handle_suffix
+    self[Solrizer.solr_name('handle_suffix')]
+  end
+
   def campus
     self[Solrizer.solr_name('campus')]
   end

@@ -102,6 +102,12 @@ module CsuMetadata
     property :embargo_terms, predicate: ::RDF::Vocab::DC.description, multiple: false
   end
 
+  def handle_suffix
+    return nil if handle.blank?
+
+    handle.map{ |url| url.split('/')[-1]}
+  end
+
   protected
 
   def update_fields

@@ -8,4 +8,9 @@ class CsuIndexer < Hyrax::WorkIndexer
   # this behavior
   include Hyrax::IndexesLinkedMetadata
 
+  def generate_solr_document
+    super.tap do |solr_doc|
+      solr_doc['handle_suffix_sim'] = object.handle_suffix
+    end
+  end
 end
