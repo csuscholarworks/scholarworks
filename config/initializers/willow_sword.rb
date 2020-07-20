@@ -2,4 +2,5 @@
 # Overriding the default config values
 WillowSword.setup do |config|
   config.work_models = %w[Dataset EducationalResource Publication Thesis]
+  config.authorize_request = true
 end
