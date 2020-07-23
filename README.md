@@ -273,3 +273,98 @@ Glacier files are always visible in S3, but they are not always accessible.  An 
 You can thaw files from directly within the AWS S3 interface.  This is the only way to retrieve a record that has been deleted from our application.
 
 ![glacier thaw](./public/img/glacier-restore.png)
+
+
+## SWORD Integration
+We are adding integration for [SWORD](https://github.com/CottageLabs/willow_sword), to allow for the creation of works via an api call. Additional usage directions are available [in the gem](https://github.com/CottageLabs/willow_sword/wiki/Usage)
+
+### Authorization
+In order to access the api, we added an `api-key` column to the users table. [Full Instructions](https://github.com/CottageLabs/willow_sword/wiki/Enabling-Authorization-In-Willow-Sword).
+
+To generate a key on a user, go to the console and run
+```ruby
+u = User.find_by_email('hyrax@testinstance')
+u.api_key = SecureRandom.uuid
+u.save!
+```
+
+### Usage
+The API is mounted on `/sword`, and you can make API calls against it as per [the usage instructions](https://github.com/CottageLabs/willow_sword/wiki/Usage)
+
+When the usage instructions call for a collection, use `default`, as this project doesn't use collections.
+
+All API requests require an API key to be included in the header e.g. `Api-key: 4d69516e-c7f8-4cff-b611-add6079180dc`
+
+#### Get list of works
+Endpoint: GET `/sword/collections/[collection_id]` (just use default)
+
+curl request
+```
+curl --request GET \
+  --url https://hyrax.digitalnest.co.uk/sword/collections/default \
+  --header 'Content-Type: application/xml' \
+  --header 'Api-key: 4d69516e-c7f8-4cff-b611-add6079180dc'
+```
+
+#### Get individual work
+ENDPOINT: GET
+```
+/sword/collections/default/works/[work_id]
+Example: https://hyrax.digitalnest.co.uk/sword/collections/default/works/jm214p12r
+```
+Curl request
+```
+curl --request GET \
+  --url https://hyrax.digitalnest.co.uk/sword/collections/default/works/jm214p12r \
+  --header 'Api-key: 4d69516e-c7f8-4cff-b611-add6079180dc'
+```
+
+#### Create a work (metadata only)
+ENDPOINT: POST
+```
+/sword/collections/default/works
+Example: https://hyrax.digitalnest.co.uk/sword/collections/default/works
+```
+curl request
+```
+curl --request POST \
+  --url https://hyrax.digitalnest.co.uk/sword/collections/default/works \
+  --header 'Content-Disposition: attachment; filename=metadata.xml' \
+  --header 'Content-Type: application/xml' \
+  --header 'In-Progress: false' \
+  --header 'Packaging: application/atom+xml;type=entry' \
+  --header 'Api-key: 4d69516e-c7f8-4cff-b611-add6079180dc' \
+  --data-binary @dc.xml
+```
+Note: use `filename=metadata.xml` regardless of what the actual file name is
+
+With form data:
+```
+curl --request POST \
+  --url https://hyrax.digitalnest.co.uk/sword/collections/default/works \
+  --header 'In-Progress: false' \
+  --header 'Api-key: 4d69516e-c7f8-4cff-b611-add6079180dc' \
+  -F metadata=@dc.xml
+```
+You can include the xml data as a string instead of attaching the file
+
+TODO: get documentation on what the formdata should look like
+TODO: we'll need to look at the work creation process to make sure it hits the actor stack, I'm not convinced it does.
+
+#### Create a work (with files)
+TODO: I couldn't get this to work, even with the sample fixtures provided in the repo. I have a feeling we'll need to rewrite it anyway
+
+#### Updating a work
+Similar to creating one, except you use PUT instead of POST
+
+ENDPOINT: PUT
+```
+/sword/collections/default/works/[work_id]
+Example: https://hyrax.digitalnest.co.uk/sword/collections/col1/works/5425k968s
+```
+curl request:
+`Same as in create requests`
+
+If there is a metadata file, the metadata is updated. If there is a payload, the file gets added to the work. It will not update any existing file. When updating, you need not include a metadata.xml file.
+
+Both binary data and multi-part data formats can be used for performing updates.
