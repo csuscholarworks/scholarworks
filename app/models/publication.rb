@@ -1,5 +1,8 @@
 # Generated via
 #  `rails generate hyrax:work Publication`
+#require_dependency 'app/helpers/ordered_string_helper'
+#include OrderedStringHelper
+
 class Publication < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include ::CsuMetadata
@@ -29,6 +32,14 @@ class Publication < ActiveFedora::Base
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
+
+  def creator
+    OrderedStringHelper.deserialize(super)
+  end
+
+  def creator= values
+    super OrderedStringHelper.serialize(values)
+  end
 
   protected
 

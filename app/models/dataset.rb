@@ -25,6 +25,14 @@ class Dataset < ActiveFedora::Base
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
 
+  def creator
+    OrderedStringHelper.deserialize(super)
+  end
+
+  def creator= values
+    super OrderedStringHelper.serialize(values)
+  end
+
   protected
 
   def update_fields

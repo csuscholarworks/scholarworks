@@ -9,9 +9,10 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+# gem 'pg', '~> 0.18'
+gem 'pg', '~> 1.2.3'
 # Use Puma as the app server
-#gem 'puma', '~> 3.7'
+# gem 'puma', '~> 3.7'
 # Use Passenger as the app server
 gem 'passenger',">= 5.0.25", require: "phusion_passenger/rack_handler"
 # Use SCSS for stylesheets

@@ -4,4 +4,13 @@ class Collection < ActiveFedora::Base
   # You can replace these metadata if they're not suitable
   include Hyrax::BasicMetadata
   self.indexer = Hyrax::CollectionWithBasicMetadataIndexer
+
+  def creator
+    OrderedStringHelper.deserialize(super)
+  end
+
+  def creator= values
+    super OrderedStringHelper.serialize(values)
+  end
+
 end
