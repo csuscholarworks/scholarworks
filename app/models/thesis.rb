@@ -11,6 +11,7 @@ class Thesis < ActiveFedora::Base
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
+  validates :creator, presence: { message: 'Your work must have an author.' }
 
   self.human_readable_type = 'Student Work'
 

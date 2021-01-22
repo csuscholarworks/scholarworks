@@ -1,0 +1,6 @@
+<% model_type = f.object.model.class.to_s.underscore %>
+<% if model_type == 'collection' %>
+  <%= f.input key, as: :multi_value, input_html: { class: 'form-control' }, required: f.object.required?(key) %>
+<% else %>
+  <%= render "shared/composite_creator", f: f, model_type: model_type %>
+<% end %>

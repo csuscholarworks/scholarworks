@@ -8,7 +8,7 @@ module Hyrax
     self.terms += [:resource_type_dataset, :sponsor, :date_issued, :alternative_title,
      :handle, :college, :department, :extent, :contributor, :geographical_area, :time_period,
      :rights_note, :rights_uri, :rights_holder, :doi, :oclcno, :issn, :isbn, :identifier_uri,
-     :bibliographic_citation, :description, :description_note]
+     :bibliographic_citation, :description, :description_note, :creator_email, :creator_orcid]
 
     self.terms -= [:handle, :source, :based_near, :location, :license,
       :date_created, :keyword, :extent]

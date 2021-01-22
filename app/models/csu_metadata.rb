@@ -1,5 +1,6 @@
 # Generated via
 #  `rails generate hyrax:work FacultyWork`
+
 module CsuMetadata
   extend ActiveSupport::Concern
 
@@ -100,6 +101,51 @@ module CsuMetadata
     property :provenance, predicate: ::RDF::Vocab::DC.provenance
     property :date_accessioned, predicate: ::RDF::Vocab::DC.date, multiple: false
     property :embargo_terms, predicate: ::RDF::Vocab::DC.description, multiple: false
+
+    property :creator_email, predicate: ::RDF::Vocab::VCARD.hasEmail, multiple: true do |index|
+      index.as :stored_searchable
+    end
+
+    property :creator_orcid, predicate: ::RDF::Vocab::VCARD.hasUID, multiple: true do |index|
+      index.as :stored_searchable
+    end
+
+    validates_with CreatorOrcidValidator
+    
+    def creator_email
+      return [] if super.nil?
+      
+      return OrderedStringHelper.deserialize(super)
+    end
+
+    def creator_email= values
+      full_sanitizer = Rails::Html::FullSanitizer.new
+      sanitized_values = Array.new(values.size, '')
+      values.each_with_index do |v, i|
+        if (v != '|||')
+          sanitized_values[i] = full_sanitizer.sanitize(v)
+        end
+      end
+      super OrderedStringHelper.serialize(sanitized_values)
+    end
+
+    def creator_orcid
+      return [] if super.nil?
+
+      return OrderedStringHelper.deserialize(super)
+    end
+    
+    def creator_orcid= values
+      full_sanitizer = Rails::Html::FullSanitizer.new
+      sanitized_values = Array.new(values.size, '')
+      values.each_with_index do |v, i|
+        if (v != '|||')
+          sanitized_values[i] = full_sanitizer.sanitize(v)
+        end
+      end
+      super OrderedStringHelper.serialize(sanitized_values)
+    end
+
   end
 
   def handle_suffix
@@ -121,4 +167,5 @@ module CsuMetadata
 
     assign_campus(admin_set.title.first.to_s)
   end
+
 end

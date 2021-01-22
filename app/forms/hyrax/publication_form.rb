@@ -7,7 +7,7 @@ module Hyrax
       :publication_status, :editor, :description, :handle, :college, :department,
       :bibliographic_citation, :extent, :geographical_area, :time_period, :date_copyright,
       :rights_note, :rights_uri, :rights_holder, :doi, :oclcno, :issn, :isbn, :identifier_uri,
-      :description_note]
+      :description_note, :creator_email, :creator_orcid]
 
     self.terms -= [:contributor, :date_created, :license, :based_near, :source, :handle,
       :keyword, :extent]
