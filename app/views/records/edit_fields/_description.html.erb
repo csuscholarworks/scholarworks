@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    $(function() {
+        tinymce.init({
+            plugins: 'autolink link tabfocus paste lists advlist',
+            selector: 'textarea.use_tinymce',
+            menubar: false,
+            statusbar: false,
+            toolbar1: "italic | bullist numlist | undo redo | link  | removeformat",
+            relative_urls: false,
+        });
+    });
+</script>
+
+<% model_type = f.object.model.class.to_s.underscore %>
+
+<% if model_type == 'collection' %>
+  <% hint_desc = t('simple_form.hints.collection.description') %>
+<% else %>
+  <% hint_desc = t('simple_form.hints.defaults.abstract') %>
+<% end %>
+
+<div class="form-group managed <%= model_type %>_<%= key %> <% if f.object.required?(key) %>required<% end %>">
+  <label class="control-label <% if f.object.required?(key) %> required <% end %>">
+    <%= t('simple_form.labels.defaults.description') %>
+    <% if f.object.required?(key) %><span class="label label-info required-tag">required</span><% end %>
+  </label>
+  <p id="<%= model_type %>_<%= key %>_help" class="help-block"><%= hint_desc %></p>
+  <ul class="listing" aria-live="polite">
+    <li class="field-wrapper input-group input-append">
+        <textarea name="<%= model_type %>[<%= key %>][]"
+                  id="<%= model_type %>_<%= key %>"
+                  rows="14"
+                  <% if f.object.required?(key) %>required="required" aria-required="true"<% end %>
+                  aria-labelledby="<%= model_type %>_<%= key %>_help"
+                  style="width:500px"
+                  class="use_tinymce form-control
+                         <% if f.object.required?(key) %>required<% end %>
+                         <% if !f.object.required?(key) %>optional<% end %>
+                         <%= model_type %>_<%= key %>"><%= f.object.model.descriptions %></textarea>
+    </li>
+  </ul>
+</div>

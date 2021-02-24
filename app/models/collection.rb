@@ -13,4 +13,13 @@ class Collection < ActiveFedora::Base
     super OrderedStringHelper.serialize(values)
   end
 
+  # this method is to combined all multivalues of this field into a single one for the front end
+  def descriptions
+    combined_val = ''
+    description.each do |d|
+      combined_val << d
+    end
+    combined_val
+  end
+
 end
