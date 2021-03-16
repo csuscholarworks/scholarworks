@@ -41,10 +41,6 @@ class SolrDocument
     self[Solrizer.solr_name('advisor')]
   end
 
-  def alternative_title
-    self[Solrizer.solr_name('alternative_title')]
-  end
-
   def bibliographic_citation
     self[Solrizer.solr_name('bibliographic_citation')]
   end
@@ -59,6 +55,18 @@ class SolrDocument
 
   def committee_member
     self[Solrizer.solr_name('committee_member')]
+  end
+
+  def creator_email
+    self[Solrizer.solr_name('creator_email')]
+  end
+
+  def creator_orcid
+    self[Solrizer.solr_name('creator_orcid')]
+  end
+
+  def creator_institution
+    self[Solrizer.solr_name('creator_institution')]
   end
 
   def date_accessioned
@@ -192,7 +200,6 @@ class SolrDocument
   def time_period
     self[Solrizer.solr_name('time_period')]
   end
-
 
   # blacklight_oai_provider mapping
   field_semantics.merge!(

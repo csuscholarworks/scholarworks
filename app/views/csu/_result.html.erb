@@ -17,7 +17,7 @@
 </div>
 <div class="csu-document-description">
   <% if document.description.presence %>
-    <%= document.description.first[0..250] %>
+    <%= document.description.first[0..250].html_safe %>
     <%= '. . .' if document.description.first.length > 250 %>
   <% end %>
 </div>

@@ -1,0 +1,21 @@
+<% model_type = f.object.model.class.to_s.underscore %>
+<div class="form-group managed multi_value <%= model_type %>_<%= key %> <% if f.object.required?(key) %>required<% end %>">
+  <label class="control-label multi_value <% if f.object.required?(key) %> required <% end %>">
+    <%= t("hydra_editor.form.model_label.#{key}") %>
+    <% if f.object.required?(key) %><span class="label label-info required-tag">required</span><% end %>
+  </label>
+  <p id="<%= model_type %>_<%= key %>_help" class="help-block"><%= t('simple_form.hints.defaults.date_issued') %></p>
+  <ul class="listing" aria-live="polite">
+    <% f.object.date_issued.each do |element| %>
+      <li class="field-wrapper input-group input-append">
+        <input name="<%= model_type %>[<%= key %>][]"
+               value="<%= element %>"
+               type="date"
+               <% if f.object.required?(key) %>required="required"<% end %>
+               aria-required="<%= f.object.required?(key) %>"
+               aria-labelledby="<%= model_type %>_<%= key %>_help"
+               class="form-control datepicker multi_value <%= model_type %>_<%= key %> <% if f.object.required?(key) %>required<% end %>" />
+      </li>
+    <% end %>
+  </ul>
+</div>

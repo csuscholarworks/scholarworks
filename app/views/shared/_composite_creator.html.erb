@@ -1,0 +1,392 @@
+<style>
+  .creator {
+    display: flex;
+    align-items: center;
+  }
+  .label_input_div {
+    margin-left: 1px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .label_field {
+    flex: 0 0 30%;
+    max-width: 30%;
+  }
+  .input_field {
+    flex: 0 0 70%;
+    max-width: 70%;
+  }
+  .creator_divider {
+    margin: 0 auto 10px auto;
+    height: 1px;
+    max-width: 50%;
+    background-image: radial-gradient(#e4ebef,gray);
+  }
+  .creator_row {
+    margin-left: 1px;
+  }
+  .warning_message {
+    max-width: 40em;
+  }
+  .combined_creator {
+    margin-bottom: 10px;
+  }
+  .creator_remove {
+    color: #d9534f;
+    #margin: 25px 0 0 -30px;
+    text-decoration: underline;
+  }
+  .d_none {
+    display: none;
+  }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+  var creator_cnt = 0;
+  var cur_creator_num = 0;
+
+  function invalid_orcid() {
+    let regex = /^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$/;
+    let has_invalid_orcid = false;
+    $('.orcid_error').addClass('d_none').attr('aria-hidden', 'true');
+    $('.creator_orcid').each(function () {
+      let orcid_val = $.trim($(this).val());
+      if (orcid_val != '' && !regex.test(orcid_val)) {
+        let id = $(this).prop('id').substring(17);
+        $('#orcid_error' + id).removeClass('d_none').attr('aria-hidden', 'false');
+        has_invalid_orcid = true;
+      }
+    });
+    return has_invalid_orcid;
+  }
+
+  function invalid_description() {
+    /* will need to check to see if class has required in it if we have more
+       than one textarea tinymce where one of them is not required but for now
+       only one textarea tinymce description is rquired in the work except for collection.
+       let class_str = $('#<%= model_type %>_description').prop('class'); or loop through
+     $('.use_tinymce').each(function () {
+       let class_str = $('#' + $(this).prop('class'));
+       and check if it contains required string
+     });
+    */
+    let desc_content = tinymce.get('<%= model_type %>_description').getContent();
+    if (desc_content.length > 0) {
+      $('#empty_description').addClass('d-none');
+      $('#description_content').removeClass('has-error');
+      return false;
+    }
+    $('#empty_description').removeClass('d-none');
+    $('#description_content').addClass('has-error');
+    return true;
+  }
+
+  function invalid_creator() {
+    let invalid = true;
+    $('.creator_name').each(function () {
+      if ($.trim($(this).val()) != '') {
+        invalid = false;
+        return false;
+      }
+    })
+    return invalid;
+  }
+
+  function any_empty_creator() {
+    let retVal = false;
+    $('.creator_name').each(function () {
+      if ($.trim($(this).val()) == '') {
+        retVal = true;
+        return false;
+      }
+    })
+    return retVal;
+  }
+
+  function toggle_submit(disabled) {
+    if (disabled) {
+      $('#required-metadata').removeClass('complete').addClass('incomplete');
+    }
+    else {
+      $('#required-metadata').addClass('complete').removeClass('incomplete');
+    }
+    $('#with_files_submit').attr('disabled', disabled);
+  }
+
+  function creator_remove() {
+    let id = $(this).prop('id');
+    if (creator_cnt > 1) {
+      let removing_creator = $('#creator_div' + id);
+      if (removing_creator.length) {
+        removing_creator.remove();
+        creator_cnt--;
+        console.log('removing the item creator_cnt ' + creator_cnt);
+        if (creator_cnt == 1) {
+          $('.creator_remove').addClass('d_none').attr('aria-hidden', 'true');
+          $('.creator_divider').remove();
+        }
+        else {
+          if ($('#creator_divider' + id).length) {
+            $('#creator_divider' + id).remove();
+          }
+        }
+        $('#creator_warning').addClass('d_none').attr('aria-hidden', 'true');
+      }
+
+    }
+    toggle_submit(invalid_creator());
+  }
+
+  function creator_add() {
+    $('#creator_warning').addClass('d_none').attr('aria-hidden', 'true');
+
+    if (any_empty_creator()) {
+      $('#creator_warning').removeClass('d_none').attr('aria-hidden', 'false');
+    }
+    else {
+      $('.creator_remove').removeClass('d_none').attr('aria-hidden', 'false');
+      $('#creator_divs')
+        .append(
+          "<div id='creator_divider" + cur_creator_num + "' class='row creator_divider'><div class='creator_divider'></div></div>" +
+          "<div id='creator_div" + cur_creator_num + "' class='row creator'>" +
+          "  <div class='col-xs-6'>" +
+          "    <div class='label_input_div'>" +
+          "      <label for='creator_name" + cur_creator_num + "' class='label_field'>" +
+          "        <span class='sr-only'>creator </span>Name" +
+          "        <span class='label label-info required-tag'>required</span>" +
+          "      </label>" +
+          "        <input type='text' name='<%= model_type %>[creator][]' id='creator_name" + cur_creator_num + "' value='' aria-required='true' class='string multi_value required creator_name combined_creator multi-text-field multi_value input_field' />" +
+          "    </div>" +
+          "    <div class='label_input_div'>" +
+          "      <input type='hidden' name='<%= model_type %>[creator_email][]' id='creator_email" + cur_creator_num + "' value='' />" +
+          "      <label for='creator_email_tmp" + cur_creator_num + "' class='label_field'>" +
+          "        <span class='sr-only'>creator </span>Email" +
+          "      </label>" +
+          "      <input type='email' name='<%= model_type %>[creator_email_tmp][]' id='creator_email_tmp" + cur_creator_num + "' value='' class='creator_email combined_creator multi-text-field multi_value input_field' />" +
+          "    </div>" +
+          "    <div class='label_input_div'>" +
+          "      <input type='hidden' name='<%= model_type %>[creator_orcid][]' id='creator_orcid" + cur_creator_num + "' value='' />" +
+          "      <label for='creator_orcid_tmp" + cur_creator_num + "' class='label_field'>" +
+          "        <span class='sr-only'>creator </span>ORCID" +
+          "      </label>" +
+          "      <input type='text' name='<%= model_type %>[creator_orcid_tmp][]' id='creator_orcid_tmp" + cur_creator_num + "' value='' class='creator_orcid combined_creator multi-text-field multi_value input_field' />" +
+          "      <span id='orcid_error" + cur_creator_num + "' class='orcid_error error text-danger error text-danger combined_creator d_none' role='alert' aria-hidden='true'>must be a string of 19 characters, e.g., '0000-0000-0000-0000'</span>" +
+          "    </div>" +
+          "    <div class='label_input_div'>" +
+          "      <input type='hidden' name='<%= model_type %>[creator_institution][]' id='creator_institution" + cur_creator_num + "' value='' />" +
+          "      <label for='creator_institution_tmp" + cur_creator_num + "' class='label_field'>" +
+          "        <span class='sr-only'>creator </span>Institution" +
+          "      </label>" +
+          "      <input type='text' name='<%= model_type %>[creator_institution_tmp][]' id='creator_institution_tmp" + cur_creator_num + "' value='' class='creator_institution combined_creator multi-text-field multi_value input_field' />" +
+          "    </div>" +
+          "  </div>" +
+          "  <div class='col-sm'>" +
+          "    <span class='input-group-btn field-controls'>" +
+          "    <button id='" + cur_creator_num + "' type='button' class='btn btn-link remove creator_remove' aria-hidden='false'>" +
+          "      <span class='glyphicon glyphicon-remove'></span>" +
+          "      <span class='controls-remove-text'>Remove</span>" +
+          "      <span class='sr-only'>creator</span>" +
+          "    </button>" +
+          "  </div>" +
+          "</div>");
+      $('.creator_remove').on('click', creator_remove);
+      $('.creator_name').on('change', creator_name_change);
+      $('.creator_orcid').on('focusout', invalid_orcid);    // comment this to test server ORCID validation
+      creator_cnt++;
+      cur_creator_num++;
+      console.log('in add creator_cnt ' + creator_cnt);
+    }
+  }
+
+  function save_handler(event) {
+    // comment this to test server ORCID validation by remove the condition invalid_orcid
+    if (invalid_orcid() || invalid_description()) {
+      event.preventDefault();
+      toggle_submit(true);
+      return;
+    }
+
+    $('.creator_name').each(function () {
+      if ($.trim($(this).val()) == '') {
+        $('#creator_div' + $(this).prop('id').substring(12)).remove();
+        creator_cnt--;
+      }
+    })
+
+    $('.creator_email').each(function () {
+      let value = $.trim($(this).val());
+      if (value == '') {
+        console.log('found an empty ' + $(this).prop('id'));
+        value = '|||';
+      }
+      let email = $('#creator_email' + $(this).prop('id').substring(17));
+      if (email.length) {
+        email.val(value);
+      }
+    })
+    $('.creator_orcid').each(function (i) {
+      let value = $.trim($(this).val());
+      if (value == '') {
+        console.log('found an empty ' + $(this).prop('id'));
+        value = '|||';
+      }
+      let orcid = $('#creator_orcid' + $(this).prop('id').substring(17));
+      if (orcid.length) {
+        orcid.val(value);
+      }
+    })
+    $('.creator_institution').each(function (i) {
+      let value = $.trim($(this).val());
+      if (value == '') {
+        console.log('found an empty ' + $(this).prop('id'));
+        value = '|||';
+      }
+      let institution = $('#creator_institution' + $(this).prop('id').substring(23));
+      if (institution.length) {
+        institution.val(value);
+      }
+    })
+  }
+
+  function creator_name_change() {
+    toggle_submit(invalid_creator());
+  }
+
+  $(function() {
+    $('#creator_content').addClass('<%= model_type %>_creator');
+    $('.creator').each(function () {
+      creator_cnt++;
+    })
+    cur_creator_num = creator_cnt;
+    console.log('initialization: creator num ' + cur_creator_num);
+    if (creator_cnt == 1) {
+      $('.creator_remove').addClass('d_none').attr('aria-hidden', 'true');
+    }
+
+    // register remove creator handler
+    $('.creator_remove').on('click', creator_remove);
+
+    // register add creator handler
+    $('#creator_add_btn').on('click', creator_add);
+
+    // comment this to test server ORCID validation
+    $('.creator_orcid').on('focusout', invalid_orcid);
+
+    //$('#with_files_submit').submit(function (e) {
+    $('#with_files_submit').click(function (e) {
+      save_handler(e);
+    });
+
+    // extra validation to catch backend validation for empty author
+    if ($('div.alert.alert-danger.alert-dismissable').length) {
+      if (invalid_creator()) {
+        $('#empty_author').removeClass('d-none');
+        $('#creator_content').addClass('has-error');
+      }
+      if (invalid_orcid()) {
+        $('#creator_content').addClass('has-error');
+      }
+    }
+
+  });
+</script>
+
+<div id="creator_content" class="form-group multi_value required managed">
+  <% creator_email = f.object.creator_email %>
+  <% creator_orcid = f.object.creator_orcid %>
+  <% creator_institution = f.object.creator_institution %>
+  <span id="creator_email_label" class="sr-only">creator email</span>
+
+  <label id="creator_label" class="control-label"><%= t('simple_form.labels.defaults.creator') %> <span class="label label-info required-tag">required</span></label>
+  <span id="empty_author" class="help-block d_none">Your work must have a creator.</span>
+
+  <p class="help-block"><%= t('simple_form.hints.defaults.creator') %></p>
+
+  <div id="creator_divs" aria-live="polite">
+    <% f.object.creator.each_with_index do |creator_name, index| %>
+      <% if index > 0 %>
+        <% divider_id = "creator_divider#{index}" %>
+        <div id=<%= divider_id %> class="row creator_divider"><div class="creator_divider"></div></div>
+      <% end %>
+      <% div_id = "creator_div#{index}" %>
+      <div id=<%= div_id %> class="row creator">
+        <div class="col-xs-6">
+          <div class="label_input_div">
+            <label for=<%= "creator_name#{index}" %> class="label_field">
+              <span class="sr-only">creator </span>
+              Name
+              <span class="label label-info required-tag">required</span>
+              </span>
+            </label>
+            <%= text_field_tag "#{model_type}[creator][]", creator_name,
+                                id: "creator_name#{index}",
+                                :required => true,
+                                class: "string multi_value required creator_name combined_creator multi-text-field multi_value input_field",
+                                'aria-required' => true
+            %>
+          </div>
+          <div class="label_input_div">
+            <%= hidden_field_tag "#{model_type}[creator_email][]", creator_email[index], id: "creator_email#{index}" %>
+            <label for=<%= "creator_email_tmp#{index}" %> class="label_field">
+              <span class="sr-only">creator </span>
+               Email
+              </span>
+            </label>
+            <%= email_field_tag "#{model_type}[creator_email_tmp][]", creator_email[index],
+                                id: "creator_email_tmp#{index}",
+                                class: "creator_email combined_creator multi-text-field multi_value input_field"
+            %>
+          </div>
+          <div class="label_input_div">
+            <%= hidden_field_tag "#{model_type}[creator_institution][]", creator_institution[index], id: "creator_institution#{index}" %>
+            <label for=<%= "creator_institution_tmp#{index}" %> class="label_field">
+              <span class="sr-only">creator </span>
+              Institution
+              </span>
+            </label>
+            <%= text_field_tag "#{model_type}[creator_institution_tmp][]", creator_institution[index],
+                               id: "creator_institution_tmp#{index}",
+                               class: "creator_institution combined_creator multi-text-field multi_value input_field"
+            %>
+          </div>
+          <div class="label_input_div">
+            <%= hidden_field_tag "#{model_type}[creator_orcid][]", creator_orcid[index], id: "creator_orcid#{index}" %>
+            <label for=<%= "creator_orcid_tmp#{index}" %> class="label_field">
+              <span class="sr-only">creator </span>
+              ORCID
+              </span>
+            </label>
+            <%= text_field_tag "#{model_type}[creator_orcid_tmp][]", creator_orcid[index],
+                               id: "creator_orcid_tmp#{index}",
+                               class: "creator_orcid combined_creator multi-text-field multi_value input_field"
+            %>
+            <span id=<%= "orcid_error#{index}" %> class="orcid_error error text-danger combined_creator d_none" role="alert" aria-hidden="true">
+            must be a string of 19 characters, e.g., '0000-0000-0000-0000'
+            </span>
+          </div>
+        </div>
+        <div class="col-sm">
+          <span class="input-group-btn field-controls">
+            <button id=<%= index %> type="button" class="btn btn-link remove creator_remove" data-element-id=<%= index %> aria-hidden="false">
+              <span class="glyphicon glyphicon-remove"></span>
+              <span class="controls-remove-text">Remove</span>
+              <span class="sr-only">creator <%=creator_name%> </span>
+            </button>
+          </span>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group multi_value">
+    <div id="creator_warning" class="row creator_row message has-warning warning_message d_none" aria-hidden="true">
+      cannot add another with empty field
+    </div>
+    <div id="creator_add_div" class="row creator_row">
+      <button id="creator_add_btn" type="button" class="btn btn-link add">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="controls-add-text">Add another Creator</span>
+      </button>
+    </div>
+  </div>
+</div>

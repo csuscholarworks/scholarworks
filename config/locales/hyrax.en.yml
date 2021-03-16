@@ -77,10 +77,10 @@ en:
         college: "The college or school within the university to which the creator of the work is affiliated. Use Ctrl or Command key to select more than one for interdisciplinary works."
         committee_member: "Enter committee members in last name, first name order, i.e. 'Smith, Jane E.' To enter multiple names, select Add another Committee Member."
         contributor: "A person or group you want to recognize for playing a role in the creation of the work, but not the primary role."
-        creator: "The person or organization who created the work.  Personal names should be entered with the last name first (e.g. Smith, John E., or Smith, Mary E. Junior, Associated Students of San Francisco State University).  If there are multiple authors, use the “Add another Creator” option for each additional author."
+        creator: "The person or organization who created the work.  Personal names should be entered with the last name first (e.g. Smith, John E., or Smith, Mary E. Junior, Associated Students of San Francisco State University).  If there are multiple creators, use the “Add another Creator” option for each additional author."
         date_copyright: "Date of copyright, enter in YYYY format, e.g. 2019."
         date_created: "The date on which the work was created."
-        date_issued: "Date of publication. If work is not published, then record the date deposited in ScholarWorks. Enter all known information following the YYYY-MM-DD format. Record at minimum the year (i.e. 2019)."
+        date_issued: "Date of publication. If work is not published, then record the date deposited in ScholarWorks."
         date_published: "Date of publication. If work is not published, then record the date deposited in ScholarWorks. Enter all known information following the YYYY-MM-DD format. Record at minimum the year (i.e. 2019)."
         degree_level: "Select from the drop-down menu."
         degree_name: "The name of the degree awarded as a result of the resource."
@@ -117,7 +117,7 @@ en:
         time_period: "The temporal extent reflected in the resource."
     labels:
       defaults:
-        creator: Author
+        creator: Creator
         committee_member: Committee member(s)
         description_note: Description Note
         doi: DOI
@@ -134,5 +134,3 @@ en:
         rights_statement: Rights Statement
         rights_note: Rights Note
         rights_uri: Rights URI
-  sword:
-    treatment: "The package has been deposited into ScholarWorks. Each file has been unpacked and provided with a unique identifier. The metadata in the manifest has been extracted and attached to the item, which has been provided with an identifier leading to an HTML splash page."
