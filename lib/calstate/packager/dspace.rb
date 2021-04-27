@@ -95,6 +95,10 @@ module CalState
           process_error(e, zip_file, source_file)
           sleep @throttle_always
 
+        rescue ActiveFedora::UnknownAttributeError => e
+          process_error(e, zip_file, source_file)
+          @errors -= 1 # keep on truckin'
+
         rescue StandardError => e
           process_error(e, zip_file, source_file)
           sleep 60

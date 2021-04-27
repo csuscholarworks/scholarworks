@@ -26,20 +26,26 @@ default_university: California State University, Northridge
 # values are value_mapped_to_resource_type: Work Type
 type_to_work_map:
   Abstract: Publication
+  Agenda: Publication
   Animation: Publication
   Article: Publication
   Book: Publication
   Book review: Publication
+  Book Chapter: Publication
   Conference paper or proceedings: Publication
   Conference program: Publication
-  Dataset: Publication
+  Course Materials: EducationalResource
+  Dataset: DataSet
+  Exercise: EducationalResource
   Interview: Publication
   Journal: Publication
+  Learning Object: EducationalResource
   Letters: Publication
   Liner notes: Publication
   Poster: Publication
   Preface: Publication
   Presentation: Publication
+  Project: Publication
   Dissertation: Thesis
   Graduate project: Thesis
   Thesis: Thesis
@@ -64,7 +70,7 @@ type_to_work_map:
   # first pass
   # Book chapter: Publication
   # second pass
-  Book chapter: Thesis
+  # Book chapter: Thesis
 
 # Dublin Core Field Mapping
 fields:
@@ -75,9 +81,9 @@ fields:
     type: Array
   advisor:
     xpath:
-      - "/dim:field[@mdschema='dc'][@element='advisor'][not(@qualifier)]"
-      - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
-    type: Array
+     - "/dim:field[@mdschema='dc'][@element='advisor'][not(@qualifier)]"
+     - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
+   type: Array
   alternative_title:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='title'][@qualifier='alternative']"
@@ -99,7 +105,7 @@ fields:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='contributor'][not(@qualifier)]"
       # Need to look at field below; yes to contrib for some works, no for others
-    #  - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='other']"
+   #  - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='other']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='photographer']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='illustrator']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='corporate']"
@@ -120,7 +126,7 @@ fields:
   date_created:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='date'][@qualifier='created']"
-      #- "/dim:field[@mdschema='dc'][@element='date'][not(@qualifier)]"
+    # - "/dim:field[@mdschema='dc'][@element='date'][not(@qualifier)]"
     type: Array
   date_issued:
     xpath:

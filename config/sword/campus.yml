@@ -22,3 +22,9 @@ cr56n096b: # east bay
   visibility_during_embargo: restricted
   visibility_after_embargo: open
   default_type: Masters Thesis
+
+3b5918567: # pomona
+  visibility: open
+  visibility_during_embargo: restricted
+  visibility_after_embargo: open
+  default_type: Masters Thesis
