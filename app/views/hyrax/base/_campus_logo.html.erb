@@ -12,7 +12,7 @@
     <% elsif campus == "Dominguez Hills" %>
       <%= link_to image_tag("logos/dominguez.png", alt: "California State University, Dominguez Hills"), "#" %>
     <% elsif campus == "East Bay" %>
-      <%= link_to image_tag("logos/eastbay.png", alt: "California State University, East Bay"), "#" %>
+      <%= link_to image_tag("logos/eastbay.png", alt: "California State University, East Bay"), "https://library.csueastbay.edu/" %>
     <% elsif campus == "Fresno" %>
       <%= link_to image_tag("logos/fresno.png", alt: "California State University, Fresno"), "https://library.fresnostate.edu/find/digital-repository" %>
     <% elsif campus == "Fullerton" %>
@@ -43,5 +43,13 @@
       <%= link_to image_tag("logos/stanislaus.png", alt: "California State University, Stanislaus"), "#" %>
     <% end %>
 
+  </div>
+
+  <div class="campus-description">
+    <% if campus == "East Bay" %>
+      <a href="https://library.csueastbay.edu/aboutthelibraries/policies/repositories">
+        Cal State East Bay Repository Policies
+      </a>
+    <% end %>
   </div>
 </div>

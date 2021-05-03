@@ -76,14 +76,13 @@ type_to_work_map:
 fields:
   description:
     xpath:
-      #- "/dim:field[@mdschema='dc'][@element='description'][not(@qualifier)]"
       - "/dim:field[@mdschema='dc'][@element='description'][@qualifier='abstract']"
     type: Array
   advisor:
     xpath:
-     - "/dim:field[@mdschema='dc'][@element='advisor'][not(@qualifier)]"
-     - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
-   type: Array
+      - "/dim:field[@mdschema='dc'][@element='advisor'][not(@qualifier)]"
+      - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
+    type: Array
   alternative_title:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='title'][@qualifier='alternative']"
@@ -104,8 +103,6 @@ fields:
   contributor:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='contributor'][not(@qualifier)]"
-      # Need to look at field below; yes to contrib for some works, no for others
-   #  - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='other']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='photographer']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='illustrator']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='corporate']"
@@ -126,7 +123,6 @@ fields:
   date_created:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='date'][@qualifier='created']"
-    # - "/dim:field[@mdschema='dc'][@element='date'][not(@qualifier)]"
     type: Array
   date_issued:
     xpath:
@@ -204,7 +200,6 @@ fields:
   identifier_uri:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='identifier'][@qualifier='orcid']"
-      #- "/dim:field[@mdschema='dc'][@element='relation'][@qualifier='requires']"
     type: Array
   is_part_of:
     xpath:
@@ -242,8 +237,6 @@ fields:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='type'][not(@qualifier)]"
       - "/dim:field[@mdschema='dc'][@element='type'][@qualifier='genre']"
-      # Genre provides TSM or other genre relations, not 'works' eg. Opera
-      #- "/dim:field[@mdschema='dc'][@element='genre'][not(@qualifier)]"
     type: Array
   rights_note:
     xpath:

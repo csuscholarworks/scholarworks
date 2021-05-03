@@ -325,8 +325,10 @@ module CalState
         file_md5_list = dom.xpath('//premis:object', premis_ns)
         file_md5_list.each do |fptr|
           # file location info
-          file_checksum = fptr.at_xpath(checksum_xpath, premis_ns).inner_html
-          flocat_xpath = "//mets:file[@CHECKSUM='" + file_checksum + "']/mets:FLocat"
+          file_id = fptr.parent.parent.parent.parent.parent.attr('ID')
+          next if file_id.nil?
+
+          flocat_xpath = "//mets:file[@ADMID='" + file_id + "']/mets:FLocat"
           file_location = dom.at_xpath(flocat_xpath, mets_ns)
 
           # the name of the file in the aip package and its original name
