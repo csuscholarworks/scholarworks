@@ -9,7 +9,7 @@ admin_set_id: 'd217qp48j'
 # exit_on_error: when an AIP package encounters an error should the import process end or continue?
 # true - ends processing on error
 # false - continues processing
-exit_on_error: true
+exit_on_error: false
 
 # output_level: How much will be output to the shell while running
 # quiet - Nothing will be output
@@ -26,6 +26,7 @@ default_university: California State University, Sacramento
 # values are value_mapped_to_resource_type: Work Type
 type_to_work_map:
   Thesis: Thesis
+  Masters thesis: Thesis
   Dissertation: Thesis
   Project: Thesis
   Graduate Project: Thesis
@@ -53,7 +54,8 @@ fields:
   advisor:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='advisor'][not(@qualifier)]"
-      - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
+      # on second pass move advisor to contributor
+      # - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
     type: Array
   alternative_title: # Thesis
     xpath:
@@ -70,6 +72,8 @@ fields:
   contributor:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='contributor'][not(@qualifier)]"
+      # on second pass move advisor to contributor
+      - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
     type: Array
   creator:
     xpath:

@@ -22,7 +22,7 @@
 
       <!-- sidebar -->
       <div class="col-sm-3 text-center">
-        <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? %>
+        <%= render 'download', presenter: @presenter %>
         <%= render 'citations', presenter: @presenter %>
         <%= render 'social_media' %>
       </div>

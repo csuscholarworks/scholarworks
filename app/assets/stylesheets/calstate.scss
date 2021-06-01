@@ -453,6 +453,23 @@ ul.catalog li.document div.csu-document-title {
 .representative-media {
     max-width: 100%;
 }
+.csu-download-unavailable {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #efefef;
+  padding: 20px;
+  margin: 0 auto;
+  width: 90%;
+  margin-bottom: 50px;
+}
+.csu-download-icon {
+  font-size: 300%;
+  color: #aaa;
+  margin-bottom: 15px;
+}
+.csu-download-available-date {
+  white-space: nowrap;
+}
 .csu-item-type {
     color: #646469;
     text-transform: uppercase;

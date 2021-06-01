@@ -1,0 +1,22 @@
+{
+  "workflows": [
+    {
+      "name": "no_edit_depositor_workflow",
+      "label": "Despoitor no edit workflow",
+      "description": "A single submission step, but depositor cannot edit after submission",
+      "allows_access_grant": true,
+      "actions": [
+        {
+          "name": "deposit",
+          "from_states": [],
+          "transition_to": "deposited",
+          "methods": [
+            "Hyrax::Workflow::GrantReadToDepositor",
+            "Hyrax::Workflow::RevokeEditFromDepositor",
+            "Hyrax::Workflow::ActivateObject"
+          ]
+        }
+      ]
+    }
+  ]
+}

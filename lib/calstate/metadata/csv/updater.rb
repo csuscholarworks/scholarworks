@@ -15,9 +15,10 @@ module CalState
         #
         # CSV Updater
         #
-        # @param path [String]  path to transaction xml file
+        # @param path [String]   path to transaction xml file
+        # @param model [String]  model name
         #
-        def initialize(path)
+        def initialize(path, model)
           @path = path
           @doc = Nokogiri::XML(File.open(path))
           @single_fields = %w[date_accessioned
@@ -27,6 +28,7 @@ module CalState
                               visibility
                               visibility_during_embargo
                               visibility_after_embargo]
+          @model = CalState::Metadata.get_model_from_slug(model)
         end
 
         #
@@ -56,8 +58,8 @@ module CalState
         # renames file to include the timestamp
         #
         def archive_file
-          timestamp = @doc.xpath('//timestamp').first.to_s
-          new_path = @path.replace('.xml', timestamp + '.xml')
+          timestamp = @doc.xpath('//timestamp').first.content
+          new_path = @path.gsub('.xml', timestamp + '.xml')
           File.rename(@path, new_path)
         end
 
@@ -67,7 +69,7 @@ module CalState
         # @param record [Hash]  record from the CSV file
         #
         def update_record(record)
-          doc = Thesis.find(record['id'].to_s)
+          doc = @model.find(record['id'].to_s)
 
           record.xpath('change').each do |change|
             field = change['field']
