@@ -15,7 +15,7 @@ namespace :calstate do
     old_dir = '/home/ec2-user/data/exported'
     new_dir = '/home/ec2-user/data/import'
     transaction_dir = new_dir + '/transactions'
-    report_dir = new_dir + '/reports'
+    report_dir = '/mnt/efs2/exports/reports/'
 
     trans = CalState::Metadata::Csv::Transaction.new(campus, model, old_dir, new_dir)
 

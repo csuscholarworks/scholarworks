@@ -7,12 +7,12 @@ require 'calstate/metadata/csv'
 
 namespace :calstate do
   desc 'Import metadata csv for a campus'
-  task :metadata_import, %i[campus file model run] => [:environment] do |_t, args|
+  task :metadata_import, %i[campus model] => [:environment] do |_t, args|
     campus = args[:campus] or raise 'No campus specified.'
     model = args[:model] ||= 'thesis'
 
     file = "/home/ec2-user/data/import/transactions/#{campus}_#{model}.xml"
-    updater = CalState::Metadata::Csv::Updater.new(file)
+    updater = CalState::Metadata::Csv::Updater.new(file, model)
     updater.run
     updater.archive_file
   end

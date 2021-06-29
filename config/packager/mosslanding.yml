@@ -1,11 +1,14 @@
 
 campus: 'Moss Landing'
-subpathwork_type: "default"
-metadata_file: "DC Record.xml"
-data_file: "pdf"
-depositor: kcloud@calstate.edu
-input_dir: /data/exported/islandora/mosslanding
-admin_set_id: '3t945q76s'
+work_type: "default"
+metadata_file: "DC Record.xml|DC_Record.xml|DC datastream.xml"
+#metadata_file: "DC Record.xml"
+data_file: "pdf|rtf|xlsx|zip|dat"
+depositor: dwalker@calstate.edu
+input_dir: /data/exported/ml
+handle_report: /data/tmp/MAIN_handle_report.txt
+admin_set_id: "hd76s152t"
+metadata_only: true
 
 # exit_on_error: when an AIP package encounters an error should the import process end or continue?
 # true - ends processing on error
@@ -21,7 +24,7 @@ output_level: 'verbose'
 include_thumbnail: false
 
 # Enter University eg, California State University, <name>
-default_university: Moss Landing Marine Laboratories
+default_university: Moss Landing Marine Labratory
 
 # work map from resource_type.
 # values are value_mapped_to_resource_type: Work Type
@@ -29,43 +32,7 @@ type_to_work_map:
   Thesis: Thesis
   Dissertation: Thesis
   Project: Thesis
-  Graduate Project: Thesis
-  Student Research: Thesis
-  Newspaper: Publication
-  Journal Issue: Publication
   Article: Publication
-  Poster: Publication
-  Report: Publication
-  Preprint: Publication
-  Technical Report: Publication
-  Working Paper: Publication
-  painting: CreativeWork
-  ephemera: CreativeWork
-  textiles: CreativeWork
-  Empirical Research: CreativeWork
-  Award Materials: CreativeWork
-  photograph: CreativeWork
-  Mixed Media: CreativeWork
-  Other: CreativeWork
-  Creative Works: CreativeWork
-  Image: CreativeWork
-  Text: Publication
-  Publication: Publication
-  Abstract: Publication
-  Periodical: Publication
-  Journal: Publication
-  journal: Publication
-  Text, newsletter: Publication
-  TechPub: Publication
-  Text, Text, Newsletter: Publication
-  MovingImage: CreativeWork
-  StillImage: CreativeWork
-  Buildings: CreativeWork
-  ~: CreativeWork
-  # Learning Object: Thesis
-  # Post-print: Publication
-  # Presentation: Thesis
-  # Recording, oral: CreativeWork
 
 Islandora ITEM:
   desc_metadata_prefix: "//oai_dc:dc"

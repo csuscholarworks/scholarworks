@@ -1,0 +1,51 @@
+<!-- representative image and download link -->
+<% if @presenter.representative_presenter %>
+  <% if can?(:download, @presenter.representative_presenter.id) %>
+    <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? %>
+  <% else %>
+    <%
+      record_solr = @presenter.solr_document
+      file_solr = @presenter.representative_presenter.solr_document
+
+      campus = record_solr.campus.first
+      visibility = file_solr.visibility
+      embargo_date = file_solr.embargo_release_date
+
+      embargo_viz = file_solr['visibility_during_embargo_ssim']
+      visibility_during_embargo = embargo_viz.first unless embargo_viz.nil?
+      after_embargo_viz = file_solr['visibility_after_embargo_ssim']
+      visibility_after_embargo = after_embargo_viz.first unless after_embargo_viz.nil?
+      limited_visibility = visibility == 'campus' ||
+                           visibility == 'authenticated' ||
+                           visibility_during_embargo == 'campus' ||
+                           visibility_during_embargo == 'authenticated'
+
+      open_to = if visibility_after_embargo == 'open'
+                  'publicly available'
+                elsif visibility_after_embargo == 'campus'
+                  'available to ' + campus + ' users'
+                elsif visibility_after_embargo == 'authenticated'
+                  'available to CSU users'
+                end
+      user_group = (visibility == 'campus' || visibility_during_embargo == 'campus') ? campus : 'CSU'
+    %>
+    <div class="csu-download-unavailable">
+      <div class="csu-download-icon">
+        <i class="fa fa-download"></i>
+      </div>
+      <% if visibility == 'restricted' %>
+        <p>File not available for download.</p>
+      <% elsif limited_visibility %>
+        <p><%= user_group %> users can <%= link_to('login', main_app.new_user_session_path) %>
+          to download this file.</p>
+      <% end %>
+      <% unless embargo_date.to_s.empty? %>
+        <p>File will be <%= open_to %> after
+          <span class="csu-download-available-date"><%= embargo_date %></span>.
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? %>
+<% end %>

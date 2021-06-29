@@ -50,13 +50,7 @@ type_to_work_map:
   Other: EducationalResource
   Interpretive Analysis: EducationalResource
   Creative Works: EducationalResource
-  # Image: CreativeWork
-  # Learning Object: Thesis
-  # Post-print: Publication
   Presentation: Publication
-  # Recording, oral: CreativeWork
-  # Text: Newspaper
-  # Table: Newspaper
 
 # Dublin Core Field Mapping
 fields:

@@ -103,7 +103,6 @@ fields:
     type: Array
   contributor:
     xpath:
-      #- "/dim:field[@mdschema='dc'][@element='contributor'][not(@qualifier)]"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='Interviewee']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='Interviewer']"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='Narrator']"

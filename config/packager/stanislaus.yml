@@ -9,7 +9,7 @@ admin_set_id: 'rr171x20k'
 # exit_on_error: when an AIP package encounters an error should the import process end or continue?
 # true - ends processing on error
 # false - continues processing
-exit_on_error: true
+exit_on_error: false
 
 # output_level: How much will be output to the shell while running
 # quiet - Nothing will be output
@@ -27,22 +27,15 @@ default_university: California State University, Stanislaus
 type_to_work_map:
   Thesis: Thesis
   Dissertation: Thesis
-  #Project: Thesis
-  #Graduate Project: Thesis
-  #Student Research: Thesis
-  #Newspaper: Publication
-  #Journal Issue: Publication
-  #Article: Publication
-  #Poster: Publication
-  #Report: Publication
-  #Preprint: Publication
-  #Technical Report: Publication
-  #Working Paper: Publication
-  #Musical Score: Thesis
-  #Learning Object: EducationalResource
-  #Text: Publication
-  #Dataset: Dataset
-  #Other: Publication
+  Published article: Publication
+  Published Article: Publication
+  Presentation: Publication
+  Article: Publication
+  Other: Publication
+  Web document: Publication
+  Peer Reviewed Article: Publication
+  University/Department Report (Unpublished): Publication
+  Internal report: Publication
 
 # Dublin Core Field Mapping
 fields:
@@ -50,11 +43,9 @@ fields:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='description'][not(@qualifier)]"
       - "/dim:field[@mdschema='dc'][@element='description'][@qualifier='abstract']"
-      #- "/dim:field[@mdschema='dc'][@element='description'][@qualifier='note']"
     type: Array
   advisor:
     xpath:
-      #- "/dim:field[@mdschema='dc'][@element='advisor'][not(@qualifier)]"
       - "/dim:field[@mdschema='dc'][@element='contributor'][@qualifier='advisor']"
     type: Array
   committee_member: # Thesis

@@ -27,21 +27,8 @@ default_university: San Francisco State University
 type_to_work_map:
   Thesis: Thesis
   Dissertation: Thesis
-  #Project: Thesis
-  #Graduate Project: Thesis
-  #Student Research: Thesis
-  #Newspaper: Publication
-  #Journal Issue: Publication
-  #Article: Publication
-  #Poster: Publication
-  #Report: Publication
-  #Preprint: Publication
-  #Technical Report: Publication
-  #Working Paper: Publication
   Musical Score: Thesis
-  #Learning Object: EducationalResource
-  #Text: Publication
-  #Dataset: Dataset
+  Research paper: Publication
   Other: Publication
 
 # Dublin Core Field Mapping

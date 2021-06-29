@@ -49,9 +49,7 @@ type_to_work_map:
   Book chapter: Publication
   Post-print: Publication
   Other: Publication
-  Student Research: Thesis
   Student Reserach: Thesis
-  Abstract: Publication
   Poster Presentation: Thesis
 
 # Dublin Core Field Mapping
@@ -119,7 +117,7 @@ fields:
   degree_level:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='description'][@qualifier='degree']"
-    type: Array
+    type: String
   description_note:
     xpath:
       - "/dim:field[@mdschema='dc'][@element='description'][@qualifier='discipline']"
