@@ -19,7 +19,6 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require blacklight/blacklight
-
+//= require 'blacklight_range_limit'
 //= require_tree .
 //= require hyrax
-

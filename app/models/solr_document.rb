@@ -81,6 +81,10 @@ class SolrDocument
     self[Solrizer.solr_name('date_submitted')]
   end
 
+  def date_facet
+    self['date_facet_ssim']
+  end
+
   def degree_level
     self[Solrizer.solr_name('degree_level')]
   end

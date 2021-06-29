@@ -4,6 +4,8 @@ class CatalogController < ApplicationController
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior
   include Blacklight::Catalog
+  include BlacklightRangeLimit::ControllerOverride
+
   include BlacklightOaiProvider::Controller
 
   # This filter applies the hydra access controls
@@ -51,6 +53,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('campus', :facetable), label: 'Campus', limit: 10
     config.add_facet_field solr_name('department', :facetable), label: 'Department', limit: 5
     config.add_facet_field solr_name('degree_level', :facetable), label: 'Degree Level', limit: 5
+    config.add_facet_field 'date_facet_ssim', label: 'Year', range: true
 
     # config.add_facet_field solr_name("advisor", :facetable), label: "Advisor", limit: 5
     # config.add_facet_field solr_name("committee_member", :facetable), label: "Committee Member", limit: 5

@@ -97,3 +97,4 @@ gem 'handle-system-rest'
 gem 'aws-sdk-s3'
 gem 'blacklight_oai_provider'
 gem 'willow_sword', github: 'csuscholarworks/willow_sword', tag: 'v1.0'
+gem "blacklight_range_limit", "~> 6"

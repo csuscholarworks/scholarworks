@@ -132,6 +132,10 @@ GEM
       blacklight (~> 6.0)
       oai (~> 0.4)
       rails (>= 4.2, < 6)
+    blacklight_range_limit (6.5.0)
+      blacklight (~> 6.10)
+      jquery-rails
+      rails (>= 4.2, < 6)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
@@ -865,6 +869,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk-s3
   blacklight_oai_provider
+  blacklight_range_limit (~> 6)
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)

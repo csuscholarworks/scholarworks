@@ -11,6 +11,7 @@ class CsuIndexer < Hyrax::WorkIndexer
   def generate_solr_document
     super.tap do |solr_doc|
       solr_doc['handle_suffix_sim'] = object.handle_suffix
+      solr_doc['date_facet_ssim'] = object.date_issued
     end
   end
 end
