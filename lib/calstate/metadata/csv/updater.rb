@@ -59,7 +59,7 @@ module CalState
         #
         def archive_file
           timestamp = @doc.xpath('//timestamp').first.content
-          new_path = @path.gsub('.xml', timestamp + '.xml')
+          new_path = @path.gsub('.xml', '_' + timestamp + '.xml')
           File.rename(@path, new_path)
         end
 

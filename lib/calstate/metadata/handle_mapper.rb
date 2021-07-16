@@ -36,6 +36,7 @@ module CalState
       def write_to_file(doc)
         handle = doc['handle_tesim']&.first.to_s
         return if handle.blank?
+        return if handle.include?('20.500.12680')
 
         campus = doc['campus_tesim']&.first.to_s
         return if campus.blank?
@@ -56,7 +57,7 @@ module CalState
       #
       def get_rewrite_rule(handle, url)
         handle = handle.sub('http://hdl.handle.net/', '')
-        'RewriteRule /handle/' + handle + ' ' + url
+        'RewriteRule ^/handle/' + handle + '$ ' + url
       end
     end
   end

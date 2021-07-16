@@ -3,6 +3,7 @@
 require 'calstate/metadata'
 
 # Usage:
+# rm /home/ec2-user/data/handles/*.conf
 # bundle exec rake calstate:handles
 
 namespace :calstate do
